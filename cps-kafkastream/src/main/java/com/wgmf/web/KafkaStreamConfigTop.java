@@ -29,7 +29,7 @@ import com.wgmf.web.CpsKafkastreamApplication.CustomRocksDBConfig;
 @Configuration
 @ConfigurationProperties(prefix = "kafkastreamtop")
 public class KafkaStreamConfigTop {
-///ssss
+
 	private static final Logger LOGGER = LogManager
 			.getLogger(CpsKafkastreamApplication.class);
 
