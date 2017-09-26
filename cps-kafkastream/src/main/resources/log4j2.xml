@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Don't forget to set system property -DLog4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector 
+	to make all loggers asynchronous. -->
+<Configuration status="ERROR">
+	<Appenders>
+		<!-- Async Loggers will auto-flush in batches, so switch off immediateFlush. -->
+		<RollingRandomAccessFile name="RollingFile"
+			fileName="logs/kafkastream.log"
+			filePattern="logs/$${date:yyyy-MM}/kafkastream-%d{MM-dd-yyyy}-%i.log.gz"
+			immediateFlush="true" append="true">
+			<PatternLayout>
+				<Pattern>${hostName}[%d [%t] %p %c %m %ex]%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="110 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="100">
+				<Delete basePath="logs" maxDepth="2">
+					<IfFileName glob="*/kafkastream-*.log.gz">
+						<IfLastModified age="40d">
+							<IfAny>
+								<IfAccumulatedFileSize exceeds="60 GB" />
+								<IfAccumulatedFileCount exceeds="100" />
+							</IfAny>
+						</IfLastModified>
+					</IfFileName>
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingRandomAccessFile>
+
+		<!-- <RollingRandomAccessFile name="debugRollingFile" fileName="logs/app-points-instance-debug.log" 
+			filePattern="logs/$${date:yyyy-MM}/app-points-instance-debug-%d{MM-dd-yyyy}-%i.log.gz" 
+			immediateFlush="false" append="false"> <PatternLayout> <Pattern>${hostName}[%d 
+			[%t] %p %c %m %ex]%n</Pattern> </PatternLayout> <Policies> <TimeBasedTriggeringPolicy 
+			/> <SizeBasedTriggeringPolicy size="20 MB" /> </Policies> <DefaultRolloverStrategy 
+			max="20" /> </RollingRandomAccessFile> -->
+
+		<!-- ${hostName}[%d [%t] %-5level %logger{36} - %msg]%n -->
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${hostName}[%d [%t] %p %c %m %ex]%n" />
+		</Console>
+	</Appenders>
+
+	<Loggers>
+		<!-- mybatis 输出sql语句 -->
+		<!-- <Logger name="com.wgmf.sy.repo" level="ERROR"></Logger> -->
+		<Root level="info" includeLocation="true" additivity="true">
+			<AppenderRef ref="Console" level="info"/>
+			<!-- <AppenderRef ref="debugRollingFile" level="info" /> -->
+			<AppenderRef ref="RollingFile" level="debug" />
+		</Root>
+	</Loggers>
+
+
+</Configuration>

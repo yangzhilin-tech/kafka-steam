@@ -1,0 +1,78 @@
+spring.kafka.bootstrap-servers: 192.168.5.73:9092
+---
+spring.kafka.consumer.group-id: mymongodb1
+---
+spring.kafka.consumer.key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+---
+spring.kafka.consumer.value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+---
+spring.kafka.producer.key-serializer: org.apache.kafka.common.serialization.StringSerializer
+---
+spring.kafka.producer.value-serializer: org.apache.kafka.common.serialization.StringSerializer
+---
+spring.kafka.properties.heartbeat.interval.ms: 30000
+---
+spring.kafka.properties.session.timeout.ms: 60000
+---
+spring.kafka.properties.request.timeout.ms: 660000
+---
+spring.kafka.properties.connections.max.idle.ms: 666000
+---
+spring.kafka.properties.fetch.max.wait.ms: 66000
+---
+spring.kafka.listener.poll-timeout: 66000
+---
+#spring.kafka.consumer.enable-auto-commit: false
+spring.kafka.listener.concurrency: 10
+---
+spring.kafka.consumer.max-poll-records: 10000
+---
+spring.kafka.consumer.client-id: mongodbprd
+---
+spring.kafka.listener.ack-count: 1000
+---
+spring:
+  application:
+    name: kafkastream
+---
+logging.config: classpath:log4j2.xml
+---
+spring.data.mongodb.host: 192.168.5.153
+---
+spring.data.mongodb.port: 27017
+---
+spring.data.mongodb.database: bi_data
+---
+elasticsearch.clusterNodes: 192.168.5.43:9300
+---
+server:
+  context-path: /stream
+---
+server:
+  port: 3330
+---
+endpoints:
+  beans:
+    enabled: true
+---
+management.security.enabled: false
+---
+server:
+  tomcat:
+    max-threads: 3000
+---
+server:
+  tomcat:
+    max-connections: 3000
+---
+kafkastream.bootstrapServers: 192.168.5.73:9092
+---
+kafkastream.clientid: ksclientid
+---
+kafkastream.applicationid: ksapplicationid
+---
+kafkastreamtop.bootstrapServers: 192.168.5.73:9092
+---
+kafkastreamtop.clientid: ksclientidtop
+---
+kafkastreamtop.applicationid: ksapplicationidtop
